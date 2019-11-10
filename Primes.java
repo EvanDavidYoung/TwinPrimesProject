@@ -97,7 +97,9 @@ public class Primes {
 	// two twin primes and the corresponding hexagon cross, with the total number on
 	// the following line.
 	public void printHexes() {
-		
+		for( Pair<BigInteger> i: HexagonCross) {
+			System.out.println(i.toString());
+		}
 	}
 
 	// Generate and store a list of primes.

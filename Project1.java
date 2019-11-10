@@ -17,10 +17,10 @@ public class Project1 {
 //		testTwo.printTwins();
 //		
 //		// Generate and test Hexagonal crosses
-//		Primes testThree = new Primes();
-//		testThree.generatePrimes(2000);
-//		testThree.generateTwinPrimes();
-//		testThree.generateHexPrimes();
-//		testThree.printHexes();
+		Primes testThree = new Primes();
+		testThree.generatePrimes(2000);
+		testThree.generateTwinPrimes();
+		testThree.generateHexPrimes();
+		testThree.printHexes();
 	}
 }

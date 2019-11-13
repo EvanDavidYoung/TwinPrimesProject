@@ -10,18 +10,18 @@ public class Project1 {
 //		testOne.printPrimes();
 //		
 //		// Generate and test Twin Primes
-//		Primes testTwo = new Primes();
-//		testTwo.generatePrimes(100);
-//		testTwo.printPrimes();
-//		testTwo.generateTwinPrimes();
-//		testTwo.printTwins();
+		Primes testTwo = new Primes();
+		testTwo.generatePrimes(100);
+		testTwo.printPrimes();
+		testTwo.generateTwinPrimes();
+		testTwo.printTwins();
 		
 		// Generate and test Hexagonal crosses
-		Primes testThree = new Primes();
-		testThree.generatePrimes(2000);
-		testThree.generateTwinPrimes();
-		testThree.generateHexPrimes();
+//		Primes testThree = new Primes();
+//		testThree.generatePrimes(2000);
+//		testThree.generateTwinPrimes();
+//		testThree.generateHexPrimes();
 //		testThree.printTwins();
-		testThree.printHexes();
+//		testThree.printHexes();
 	}
 }

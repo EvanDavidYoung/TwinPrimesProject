@@ -62,7 +62,9 @@ public class Primes {
 	private Set<Pair<BigInteger>> TwinPrimeSet = new HashSet<Pair<BigInteger>>();
 	private List<Pair<BigInteger>> HexagonCross = new ArrayList<Pair<BigInteger>>();
 	private Set<Pair<BigInteger>> HexagonCrossSet = new HashSet<Pair<BigInteger>>();
-	private HashMap<Pair<BigInteger>,Pair<Pair<BigInteger>>> HexMap = new HashMap<>();
+//	private HashMap<Pair<BigInteger>,Pair<Pair<BigInteger>>> HexMap = new HashMap<>();
+	private HashMap<BigInteger,Pair<BigInteger>> HexMap = new HashMap<>();
+
 
 //	private List<BigInteger> HexagonCrosses = new ArrayList<BigInteger>();
 //	private int numberOfPrimes = 0;
@@ -106,11 +108,9 @@ public class Primes {
 	public void printHexes() {
 		// 	private HashMap<Pair<BigInteger>,Pair<Pair<BigInteger>>> HexMap = new HashMap<>();
 		for( Pair<BigInteger> i: HexagonCross) {
-//			Pair<Pair<BigInteger>> key = HexMap.get(i);
-//			System.out.println(key.getxVal().toString());
-//			Pair<BigInteger> k = j.getxVal();
-//			Pair<BigInteger> l = j.getyVal();
-			System.out.println("Prime Pairs: " + "separated by " + i.xString() + "," + i.yString());
+			Pair<BigInteger> pair1 = HexMap.get(i.getxVal());
+			Pair<BigInteger> pair2 = HexMap.get(i.getyVal());
+			System.out.println("Prime Pairs: " + pair1.toString() + "," + pair2.toString() + " separated by " + i.xString() + "," + i.yString());
 		}
 	}
 
@@ -217,23 +217,21 @@ public class Primes {
 		
 		Set <BigInteger> candidates = new HashSet<BigInteger>();
 		HashMap<BigInteger,Pair<BigInteger>> map = new HashMap<>();
-		HashMap<Pair<BigInteger>,Pair<Pair<BigInteger>>> NewHexMap = new HashMap<>();
 		// Generate hex primes candidates: all values between the twin primes 
 		for(Pair<BigInteger> i : TwinPrimes) {
 			candidates.add(i.getxVal().add(one));
-			map.put(i.getxVal().add(one),i);
+			map.put((i.getxVal().add(one)),i);
 		}
 		for(BigInteger j : candidates) {
 			BigInteger k = j.multiply(two);
  			if(candidates.contains(k)) {
-// 				System.out.println(map.get(j).toString() + " " + map.get(k).toString());
  				HexagonCrossSet.add(new Pair<BigInteger>(j,k));
- 				NewHexMap.put(new Pair<BigInteger>(j,k),new Pair<Pair<BigInteger>>(map.get(j),map.get(k)));
  			}
 		}
         ArrayList<Pair<BigInteger>> sortedList = new ArrayList<Pair<BigInteger>>(HexagonCrossSet); 
         Collections.sort(sortedList); 
         HexagonCross = sortedList;
-        HexMap = NewHexMap;
+        HexMap = map;
+        
 	}
 }

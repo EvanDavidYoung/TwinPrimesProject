@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +35,12 @@ public class Primes {
 			this.X = x; 
 			this.Y = y;
 		}
+		public String xString() {
+			return this.X.toString();
+		}
+		public String yString() {
+			return this.Y.toString();
+		}
 		public String toString() { 
 			return "(" + this.X.toString() + "," + this.Y.toString() + ")";
 		}
@@ -55,6 +62,7 @@ public class Primes {
 	private Set<Pair<BigInteger>> TwinPrimeSet = new HashSet<Pair<BigInteger>>();
 	private List<Pair<BigInteger>> HexagonCross = new ArrayList<Pair<BigInteger>>();
 	private Set<Pair<BigInteger>> HexagonCrossSet = new HashSet<Pair<BigInteger>>();
+	private HashMap<Pair<BigInteger>,Pair<Pair<BigInteger>>> HexMap = new HashMap<>();
 
 //	private List<BigInteger> HexagonCrosses = new ArrayList<BigInteger>();
 //	private int numberOfPrimes = 0;
@@ -74,7 +82,6 @@ public class Primes {
 	 *  Prints the prime numbers in sorted order.
 	 */
 	public void printPrimes() {
-		// Sorting the primes. Unnecessary but I feel like the output should be in sorted order.
 		for (BigInteger i : Primes) {
 			System.out.println(i);
 		}
@@ -97,11 +104,52 @@ public class Primes {
 	// two twin primes and the corresponding hexagon cross, with the total number on
 	// the following line.
 	public void printHexes() {
+		// 	private HashMap<Pair<BigInteger>,Pair<Pair<BigInteger>>> HexMap = new HashMap<>();
 		for( Pair<BigInteger> i: HexagonCross) {
-			System.out.println(i.toString());
+//			Pair<Pair<BigInteger>> key = HexMap.get(i);
+//			System.out.println(key.getxVal().toString());
+//			Pair<BigInteger> k = j.getxVal();
+//			Pair<BigInteger> l = j.getyVal();
+			System.out.println("Prime Pairs: " + "separated by " + i.xString() + "," + i.yString());
 		}
 	}
 
+//	 function is_prime(n)
+//     if n ≤ 3
+//        return n > 1
+//     else if n mod 2 = 0 or n mod 3 = 0
+//        return false
+//     let i ← 5
+//     while i * i ≤ n
+//        if n mod i = 0 or n mod (i + 2) = 0    <-
+//            return false
+//        i ← i + 6
+//     return true
+	BigInteger four = new BigInteger("4");
+	BigInteger three = new BigInteger("3");
+	BigInteger six = new BigInteger("6");
+	
+	private boolean isPrime(BigInteger candidate) {
+		if(candidate.compareTo(four) == -1) {
+			if(candidate.compareTo(BigInteger.ONE) == 1) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else if(candidate.mod(BigInteger.TWO).equals(BigInteger.ZERO) || candidate.mod(three).equals(BigInteger.ZERO) ){
+			return false; 
+		}
+		BigInteger i = new BigInteger("5");
+		while(i.multiply(i).compareTo(candidate) <= 0) {
+			if(candidate.mod(i).equals(BigInteger.ZERO) || candidate.mod(i.add(BigInteger.TWO)).equals(BigInteger.ZERO)) {
+				return false;
+			}
+			i = i.add(six);
+		}
+		return true;
+	}
 	// Generate and store a list of primes.
 	/**
 	 * Generates primes from 1 to variable count 
@@ -109,23 +157,30 @@ public class Primes {
 	 */
 	public void generatePrimes(int count) {
 		// Generate primes using the SieveOfEratosthenes algorithm
-		int n = count; 
-		boolean arr[] = new boolean[n+1]; 
-		Arrays.fill(arr, Boolean.TRUE);
+//		int n = count; 
+//		boolean arr[] = new boolean[99999]; 
+//		Arrays.fill(arr, Boolean.TRUE);
+//		
+//		for(long i = 2; i < 99999; i++) {
+//			if(arr[(int)i] == true) {
+//				for(long j = i*i; j <= n; j += i ) {
+//					arr[(int)j] = false; 
+//				}
+//			}
+//		}
+//		// Finds the prime ones and adds them to the primes set. 
+
+		int i = 0; 
+		BigInteger one = new BigInteger("1");
+		BigInteger k = new BigInteger("1"); 
+		while(i < count) {
+			if(isPrime(k)) {  
+				PrimeSet.add(k);
+				i++; 
+			}
+			k = k.add(one);
+		}
 		
-		for(int i = 2; i < Math.ceil(Math.sqrt(n+1)); i++) {
-			if(arr[i] == true) {
-				for(int j = i*i; j <= n; j += i ) {
-					arr[j] = false; 
-				}
-			}
-		}
-		// Finds the prime ones and adds them to the primes set. 
-		for(int k = 2; k < n; k++) {
-			if(arr[k] == true) {
-				PrimeSet.add(BigInteger.valueOf(k));
-			}
-		}
         ArrayList<BigInteger> sortedList = new ArrayList<BigInteger>(PrimeSet); 
         Collections.sort(sortedList); 
         this.Primes = sortedList;
@@ -161,18 +216,24 @@ public class Primes {
 		BigInteger two = new BigInteger("2");
 		
 		Set <BigInteger> candidates = new HashSet<BigInteger>();
-		// Generate hex primes candidates 
+		HashMap<BigInteger,Pair<BigInteger>> map = new HashMap<>();
+		HashMap<Pair<BigInteger>,Pair<Pair<BigInteger>>> NewHexMap = new HashMap<>();
+		// Generate hex primes candidates: all values between the twin primes 
 		for(Pair<BigInteger> i : TwinPrimes) {
 			candidates.add(i.getxVal().add(one));
+			map.put(i.getxVal().add(one),i);
 		}
 		for(BigInteger j : candidates) {
 			BigInteger k = j.multiply(two);
  			if(candidates.contains(k)) {
+// 				System.out.println(map.get(j).toString() + " " + map.get(k).toString());
  				HexagonCrossSet.add(new Pair<BigInteger>(j,k));
+ 				NewHexMap.put(new Pair<BigInteger>(j,k),new Pair<Pair<BigInteger>>(map.get(j),map.get(k)));
  			}
 		}
         ArrayList<Pair<BigInteger>> sortedList = new ArrayList<Pair<BigInteger>>(HexagonCrossSet); 
         Collections.sort(sortedList); 
         HexagonCross = sortedList;
+        HexMap = NewHexMap;
 	}
 }

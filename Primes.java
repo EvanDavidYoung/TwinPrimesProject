@@ -112,6 +112,8 @@ public class Primes {
 			Pair<BigInteger> pair2 = HexMap.get(i.getyVal());
 			System.out.println("Prime Pairs: " + pair1.toString() + "," + pair2.toString() + " separated by " + i.xString() + "," + i.yString());
 		}
+		System.out.println("Total Number of hex primes is " + HexagonCrossSet.size());
+
 	}
 
 //	 function is_prime(n)
@@ -156,20 +158,7 @@ public class Primes {
 	 * @param count
 	 */
 	public void generatePrimes(int count) {
-		// Generate primes using the SieveOfEratosthenes algorithm
-//		int n = count; 
-//		boolean arr[] = new boolean[99999]; 
-//		Arrays.fill(arr, Boolean.TRUE);
-//		
-//		for(long i = 2; i < 99999; i++) {
-//			if(arr[(int)i] == true) {
-//				for(long j = i*i; j <= n; j += i ) {
-//					arr[(int)j] = false; 
-//				}
-//			}
-//		}
-//		// Finds the prime ones and adds them to the primes set. 
-
+		// Finds the prime ones and adds them to the primes set. 
 		int i = 0; 
 		BigInteger one = new BigInteger("1");
 		BigInteger k = new BigInteger("1"); 

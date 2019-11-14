@@ -13,8 +13,6 @@ import java.math.BigInteger;
 public class Primes {
 
 	// Pair class implementation.
-//	private class Pair<T> implements Comparable<Pair<T>>;
-
 	private class Pair<T> implements Comparable<Pair<T>>{
 	
 		T X; 
@@ -62,14 +60,11 @@ public class Primes {
 	private Set<Pair<BigInteger>> TwinPrimeSet = new HashSet<Pair<BigInteger>>();
 	private List<Pair<BigInteger>> HexagonCross = new ArrayList<Pair<BigInteger>>();
 	private Set<Pair<BigInteger>> HexagonCrossSet = new HashSet<Pair<BigInteger>>();
-//	private HashMap<Pair<BigInteger>,Pair<Pair<BigInteger>>> HexMap = new HashMap<>();
 	private HashMap<BigInteger,Pair<BigInteger>> HexMap = new HashMap<>();
 
 
-//	private List<BigInteger> HexagonCrosses = new ArrayList<BigInteger>();
-//	private int numberOfPrimes = 0;
 
-	// Add a prime to the prime list if and only if it is not already in the list.
+	// Add a prime to the prime list if and only if it is not already in the set. 
 	// (ignore duplicates)
 	public void addPrime(BigInteger x) {
 		PrimeSet.add(x);
@@ -95,7 +90,6 @@ public class Primes {
 	// a comma separating them, and the total number of twin primes should be on the
 	// following line.
 	public void printTwins() {
-		// Sorting the primes. Unnecessary but I feel like the output should be in sorted order.
 		for (Pair<BigInteger> i : TwinPrimes) {
 			System.out.println(i.toString());
 		}
@@ -116,17 +110,6 @@ public class Primes {
 
 	}
 
-//	 function is_prime(n)
-//     if n ≤ 3
-//        return n > 1
-//     else if n mod 2 = 0 or n mod 3 = 0
-//        return false
-//     let i ← 5
-//     while i * i ≤ n
-//        if n mod i = 0 or n mod (i + 2) = 0    <-
-//            return false
-//        i ← i + 6
-//     return true
 	BigInteger four = new BigInteger("4");
 	BigInteger three = new BigInteger("3");
 	BigInteger six = new BigInteger("6");

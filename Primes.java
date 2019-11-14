@@ -18,32 +18,51 @@ public class Primes {
 		T X; 
 		T Y; 
 		/**
-		 *  Set method 
-		 * @param x
-		 * @param y
+		 * 
+		 * @return the value of X 
 		 */
-		public T getxVal() {
+		T getxVal() {
 			return X;
 		}
+		/**
+		 * 
+		 * @return the value of y 
+		 */
 		public T getyVal() {
 			return Y;
 		}
 		
+		/**
+		 * Pair Constructor. X and Y must be of same type. 
+		 * @param x
+		 * @param y
+		 */
 		public Pair(T x, T y){
 			this.X = x; 
 			this.Y = y;
 		}
+		/**
+		 * 
+		 * @return x as string 
+		 */
 		public String xString() {
 			return this.X.toString();
 		}
+		/**
+		 * 
+		 * @return y as string 
+		 */
 		public String yString() {
 			return this.Y.toString();
 		}
+		/** 
+		 * return x and y as strings in format (X,Y) 
+		 */
 		public String toString() { 
 			return "(" + this.X.toString() + "," + this.Y.toString() + ")";
 		}
 		/**
-		 *  Only works for type ints 
+		 *  Only works if values have a compareTo method  
 		 */
 		@Override
 		public int compareTo(Pair<T> Y) {
@@ -54,6 +73,8 @@ public class Primes {
 
 	// Member variables for containing out lists of integers, twin primes, hexagon
 	// crosses, and the pairs of twin primes that make up the hex crosses.
+	// List of primes, twin primes, hexagon crosses have an associated set. These are
+	// used to add items to a list without duplicates. 
 	private List<BigInteger> Primes = new ArrayList<BigInteger>();
 	private Set<BigInteger> PrimeSet = new HashSet<BigInteger>();
 	private List<Pair<BigInteger>> TwinPrimes = new ArrayList<Pair<BigInteger>>();
@@ -66,6 +87,11 @@ public class Primes {
 
 	// Add a prime to the prime list if and only if it is not already in the set. 
 	// (ignore duplicates)
+	/**
+	 * addPrime does not update the list. This method should only be called if the 
+	 * list is updated from the set  
+	 * @param x [PrimeNumber]
+	 */
 	public void addPrime(BigInteger x) {
 		PrimeSet.add(x);
 		if(PrimeSet.contains(x))
@@ -113,7 +139,11 @@ public class Primes {
 	BigInteger four = new BigInteger("4");
 	BigInteger three = new BigInteger("3");
 	BigInteger six = new BigInteger("6");
-	
+	/**
+	 * 
+	 * @param candidate: Biginteger whose primality we are testing 
+	 * @return a boolean representing if the number is prime or not 
+	 */
 	private boolean isPrime(BigInteger candidate) {
 		if(candidate.compareTo(four) == -1) {
 			if(candidate.compareTo(BigInteger.ONE) == 1) {
@@ -183,6 +213,11 @@ public class Primes {
 
 	// Generate and store the hexagon crosses, along with the two twin primes that
 	// generate the hexagon cross.
+	/**
+	 * Values Changed: HexagonCross, HexMap 
+	 * This function overwrites the primes currently generated. 
+	 * Must call generateTwinPrimes() before calling this method for it to work properly. 
+	 */
 	public void generateHexPrimes() {
 		BigInteger one = new BigInteger("1");
 		BigInteger two = new BigInteger("2");
